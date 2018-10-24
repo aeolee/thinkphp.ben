@@ -1,0 +1,32 @@
+<?php
+// +----------------------------------------------------------------------
+// | ThinkPHP [ WE CAN DO IT JUST THINK ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2006~2018 http://thinkphp.cn All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: liu21st <liu21st@gmail.com>
+// +----------------------------------------------------------------------
+
+
+use think\facade\Route;
+
+Route::get('think', function () {
+    return 'hello,ThinkPHP5!';
+});
+
+Route::miss(function(){
+    return '简单的 404 错误页面';
+});
+
+//Blog的路由规则
+Route::resource('blog','index/Blog')->ext('htm')->pattern(['id'=>'\d+']);
+
+//Info
+Route::resource('info','index/info');
+
+
+return [
+
+];
