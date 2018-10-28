@@ -2,43 +2,116 @@
 
 namespace app\index\controller;
 
+use app\common\model\Blog as BlogModel;
 use think\Controller;
+use think\Request;
 
+/**
+ * 
+ * @route('blog')
+ */
 class Blog extends Controller
 {
-    //
+    /**
+     * 显示资源列表
+     *
+     * @return \think\Response
+     */
     public function index()
     {
-        return '执行列表操作';
+        //
     }
 
+    /**
+     * 
+     * 
+     * @riyte('blog/search')
+     */
+    public function search()
+    {
+        $users = BlogModel::where('age','>=',30)
+            ->field('id,name,age')
+            ->order('id','desc')
+            ->select();
+        
+        $this->assign('users',$users);
+
+        return $this->fetch();
+    }
+
+    /**
+     * 显示创建资源表单页.
+     *
+     * @return \think\Response
+     */
     public function create()
     {
-        return '执行新增操作';
+        //
     }
 
-    public function save() 
+    /**
+     * 保存新建的资源
+     *
+     * @param  \think\Request  $request
+     * @return \think\Response
+     */
+    public function save(Request $request)
     {
-        return '执行保存操作';
+        //
     }
 
-    public function read($id = 0)
+    /**
+     * 显示指定的资源
+     *
+     * @param  int  $id
+     * @return \think\Response
+     */
+    public function read($id)
     {
-        return '执行查看操作 [id:'. $id .']';
+        $blog = BlogModel::get($id);
+
+        if ($blog) {
+            $recommend           = [0 => '普通', 1 => '置顶', 2 => '推荐', 3 => '精华'];
+            $blog->recommend     = $recommend[$blog->recommend];
+            $blog->publish_time = date('Y-m-d', $blog->publish_time);
+        }
+
+        $this->assign('blog', $blog);
+
+        return $this->fetch();
     }
 
-    public function edit($id = 0)
+    /**
+     * 显示编辑资源表单页.
+     *
+     * @param  int  $id
+     * @return \think\Response
+     */
+    public function edit($id)
     {
-        return '执行编辑操作 [id:'. $id .']';
+        //
     }
 
-    public function update($id = 0)
+    /**
+     * 保存更新的资源
+     *
+     * @param  \think\Request  $request
+     * @param  int  $id
+     * @return \think\Response
+     */
+    public function update(Request $request, $id)
     {
-        return '执行更新操作 [id:'. $id .']';
+        //
     }
 
+    /**
+     * 删除指定资源
+     *
+     * @param  int  $id
+     * @return \think\Response
+     */
     public function delete($id)
     {
-        return '执行删除操作 [id:'. $id .']';
+        //
     }
 }

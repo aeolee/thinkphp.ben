@@ -16,15 +16,13 @@ Route::get('think', function () {
     return 'hello,ThinkPHP5!';
 });
 
-Route::miss(function(){
-    return '简单的 404 错误页面';
-});
-
 //Blog的路由规则
-Route::resource('blog','index/Blog')->ext('htm')->pattern(['id'=>'\d+']);
+
 
 //Info
-Route::resource('info','index/info');
+Route::resource('info','index/Info');
+
+Route::resource('template','index/Template');
 
 
 return [
